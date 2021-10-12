@@ -1,7 +1,5 @@
 
-# fleuron
-
-❦
+# fleuron ❦
 
 A Javascript (and CSS) library for rendering flor processes and process definitions.
 
