@@ -1,0 +1,10 @@
+["sequence",
+ [["rm", [["_att", [["_sqs", "complete mandate", 3]], 3]], 3],
+  ["mgr", [["_att", [["_sqs", "approve mandate", 4]], 4]], 4],
+  ["concurrence",
+   [["ops1", [["_att", [["_sqs", "prepare account", 6]], 6]], 6],
+    ["ops2", [["_att", [["_sqs", "prepare mandate", 7]], 7]], 7]],
+   5],
+  ["rm", [["_att", [["_sqs", "notify customer", 8]], 8]], 8]],
+ 2,
+ "t.flo"]
