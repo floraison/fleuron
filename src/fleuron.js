@@ -23,6 +23,7 @@ var Fleuron = (function() {
   };
 
   var rs = {};
+
   rs._children = function(elt, tree, parent) {
 //clog('renderChildren()', elt, tree, parent);
     var e = elt.querySelector('.fleuron-children');
@@ -41,7 +42,7 @@ var Fleuron = (function() {
         'data-fleuron-file': tree[3] });
     create(e, 'span', {}, tree[0]);
     var ce = create(e, 'div', { class: 'fleuron-children' });
-    rs._children(e, tree, p);
+    getRenderer(elt, '_children')(e, tree, p);
     return e;
   };
   rs._leaf = function(elt, tree, parent) {
@@ -58,12 +59,25 @@ var Fleuron = (function() {
     return render(elt, tree[1][0], p);
   };
 
+  // Looks for _fleuron in all parent elements
+  //
+  var findFleurons = function(elt) {
+
+    if (elt._fleurons) return elt._fleurons;
+    if (elt.parentElement) return findFleurons(elt.parentElement);
+    return {};
+  };
+
+  var getRenderer = function(elt, t0) {
+
+    var fs = findFleurons(elt);
+
+    return fs[t0] || rs[t0] || fs._default || rs._default;
+  };
+
   var render = function(elt, tree, parent) {
 
-    if (Array.isArray(tree))
-      (rs[tree[0]] || rs._default)(elt, tree, parent);
-    else
-      rs._leaf(elt, tree, parent);
+    return getRenderer(elt, tree[0])(elt, tree, parent);
   };
 
   //
