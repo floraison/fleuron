@@ -23,16 +23,17 @@ var Fleuron = (function() {
   };
 
   var rs = {};
-  rs._children = function(elt, tree) {
-//clog('renderChildren()', elt, tree);
+  rs._children = function(elt, tree, parent) {
+//clog('renderChildren()', elt, tree, parent);
     var e = elt.querySelector('.fleuron-children');
     if (Array.isArray(tree[1]))
-      tree[1].forEach(function(t) { render(e, t); });
+      tree[1].forEach(function(t) { render(e, t, parent); });
     else
-      render(e, tree[1]);
+      render(e, tree[1], parent);
   };
-  rs._default = function(elt, tree) {
+  rs._default = function(elt, tree, parent) {
 //clog('default', elt, tree);
+    var p = { t0: tree[0] };
     var e = create(
       elt, 'div', {
         class: `fleuron-default fleuron-${tree[0]}`,
@@ -40,20 +41,29 @@ var Fleuron = (function() {
         'data-fleuron-file': tree[3] });
     create(e, 'span', {}, tree[0]);
     var ce = create(e, 'div', { class: 'fleuron-children' });
-    rs._children(e, tree);
+    rs._children(e, tree, p);
     return e;
   };
-  rs._leaf = function(elt, tree) {
+  rs._leaf = function(elt, tree, parent) {
 //clog('_leaf', elt, tree);
     return create(elt, 'div', {}, JSON.stringify(tree));
   };
 
-  var render = function(elt, tree) {
+  rs._sqs = function(elt, tree, parent) {
+    var t = "'" + tree[1].replaceAll(/'/g, "\'") + "'";
+    return create(elt, 'span', { class: 'fleuron-_sqs' }, t);
+  };
+  rs._att = function(elt, tree, parent) {
+    var p = { t0: '_att' };
+    return render(elt, tree[1][0], p);
+  };
+
+  var render = function(elt, tree, parent) {
 
     if (Array.isArray(tree))
-      (rs[tree[0]] || rs._default)(elt, tree);
+      (rs[tree[0]] || rs._default)(elt, tree, parent);
     else
-      rs._leaf(elt, tree);
+      rs._leaf(elt, tree, parent);
   };
 
   //
@@ -62,7 +72,7 @@ var Fleuron = (function() {
   this.render = function(elt, tree) {
 
     clean(elt);
-    render(elt, tree);
+    render(elt, tree, null);
   };
 
   //
