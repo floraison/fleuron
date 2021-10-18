@@ -26,28 +26,31 @@ var Fleuron = (function() {
 
   rs._children = function(elt, tree, parent) {
 //clog('renderChildren()', elt, tree, parent);
-    var e = elt.querySelector('.fleuron-children');
+    var ce = create(elt, 'div', { class: 'fleuron-children' });
     if (Array.isArray(tree[1]))
-      tree[1].forEach(function(t) { render(e, t, parent); });
+      tree[1].forEach(function(t) { render(ce, t, parent); });
     else
-      render(e, tree[1], parent);
+      render(ce, tree[1], parent);
+    return elt;
   };
   rs._default = function(elt, tree, parent) {
 //clog('default', elt, tree);
-    var p = { t0: tree[0] };
+    //var p = { t0: tree[0] };
     var e = create(
       elt, 'div', {
         class: `fleuron-default fleuron-${tree[0]}`,
         'data-fleuron-line': tree[2],
         'data-fleuron-file': tree[3] });
     create(e, 'span', {}, tree[0]);
-    var ce = create(e, 'div', { class: 'fleuron-children' });
-    getRenderer(elt, '_children')(e, tree, p);
-    return e;
+    //var ce = create(e, 'div', { class: 'fleuron-children' });
+    //getRenderer(elt, '_children')(e, tree, p);
+    //return e;
+    return renderChildren(e, tree);
   };
   rs._leaf = function(elt, tree, parent) {
 //clog('_leaf', elt, tree);
-    return create(elt, 'div', {}, JSON.stringify(tree));
+    return create(elt,
+      'span', { class: 'fleuron-_leaf' }, JSON.stringify(tree));
   };
 
   rs._sqs = function(elt, tree, parent) {
@@ -55,8 +58,10 @@ var Fleuron = (function() {
     return create(elt, 'span', { class: 'fleuron-_sqs' }, t);
   };
   rs._att = function(elt, tree, parent) {
-    var p = { t0: '_att' };
-    return render(elt, tree[1][0], p);
+    //var p = { t0: '_att' };
+    //return render(elt, tree[1][0], p);
+    var e = create(elt, 'span', { class: 'fleuron-_att' });
+    return render(e, tree[1][0], { t0: '_att' });
   };
 
   // Looks for _fleuron in all parent elements
@@ -73,6 +78,13 @@ var Fleuron = (function() {
     var fs = findFleurons(elt);
 
     return fs[t0] || rs[t0] || fs._default || rs._default;
+  };
+
+  var renderChildren = function(elt, tree) {
+
+    getRenderer(elt, '_children')(elt, tree, { t0: tree[0] });
+
+    return elt;
   };
 
   var render = function(elt, tree, parent) {
