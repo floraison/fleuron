@@ -1,7 +1,33 @@
 
-/* fleuron.css */
+/*
+ * fleuron.css
+ *
+ * core fleuron styles
+ */
 
+/*
+.fleuron-attributes,
 .fleuron-children {
   margin-left: 1em;
+}
+*/
+
+.fleuron {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.fleuron-tree0 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+}
+.fleuron-attributes {
+  grid-column-start: 3;
+  grid-row-start: 1;
+}
+.fleuron-children {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
 }
 
