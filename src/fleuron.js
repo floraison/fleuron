@@ -31,6 +31,7 @@ var Fleuron = (function() {
     if (tree[3]) as['data-fleuron-file'] = tree[3];
 
     var e = create(elt, 'div', as);
+    create(e, 'div', { class: 'fleuron-head' });
     create(e, 'div', { class: 'fleuron-tree0' }, tree[0]);
 
     return e;
@@ -74,12 +75,11 @@ var Fleuron = (function() {
       'div', { class: 'fleuron-_leaf' }, JSON.stringify(tree));
   };
 
-  rs.sequence = function(elt, tree, parent) {
-    var e = createFleuronDiv(elt, tree, 'sequence');
-    renderChildren(e, tree);
-clog(e.querySelectorAll(':scope > .fleuron-children > *'));
-    return e;
-  };
+  //rs.sequence = function(elt, tree, parent) {
+  //  var e = createFleuronDiv(elt, tree, 'sequence');
+  //  renderChildren(e, tree);
+  //  return e;
+  //};
   rs._sqs = function(elt, tree, parent) {
     var t = "'" + tree[1].replaceAll(/'/g, "\'") + "'";
     return create(elt, 'div', { class: 'fleuron-_sqs' }, t);
