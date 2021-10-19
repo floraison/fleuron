@@ -57,8 +57,8 @@ var Fleuron = (function() {
       }
     });
 
-    if (ae.childElementCount < 1) elt.removeChild(ae);
-    if (ce.childElementCount < 1) elt.removeChild(ce);
+    //if (ae.childElementCount < 1) elt.removeChild(ae);
+    //if (ce.childElementCount < 1) elt.removeChild(ce);
 
     return elt;
   };
