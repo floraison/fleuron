@@ -45,11 +45,15 @@ var Fleuron = (function() {
 
     var ae = create(elt, 'div', { class: 'fleuron-attributes' });
     var ce = create(elt, 'div', { class: 'fleuron-children' });
-    var te = ae;
 
     tree[1].forEach(function(t) {
-      if (t[0] !== '_att') te = ce;
-      render(te, t, parent);
+      if (t[0] === '_att') {
+        render(ae, t, parent);
+      }
+      else {
+        var e = create(ce, 'div', { class: 'fleuron-child' });
+        render(e, t, parent);
+      }
     });
 
     if (ae.childElementCount < 1) elt.removeChild(ae);
@@ -67,21 +71,23 @@ var Fleuron = (function() {
   rs._leaf = function(elt, tree, parent) {
 //clog('_leaf', elt, tree);
     return create(elt,
-      'span', { class: 'fleuron-_leaf' }, JSON.stringify(tree));
+      'div', { class: 'fleuron-_leaf' }, JSON.stringify(tree));
   };
 
-  //rs.sequence = function(elt, tree, parent) {
-  //  var e = createFleuronDiv(elt, tree, 'sequence');
-  //  return renderChildren(e, tree);
-  //};
+  rs.sequence = function(elt, tree, parent) {
+    var e = createFleuronDiv(elt, tree, 'sequence');
+    renderChildren(e, tree);
+clog(e.querySelectorAll(':scope > .fleuron-children > *'));
+    return e;
+  };
   rs._sqs = function(elt, tree, parent) {
     var t = "'" + tree[1].replaceAll(/'/g, "\'") + "'";
-    return create(elt, 'span', { class: 'fleuron-_sqs' }, t);
+    return create(elt, 'div', { class: 'fleuron-_sqs' }, t);
   };
   rs._att = function(elt, tree, parent) {
     //var p = { t0: '_att' };
     //return render(elt, tree[1][0], p);
-    var e = create(elt, 'span', { class: 'fleuron-_att' });
+    var e = create(elt, 'div', { class: 'fleuron-_att' });
     return render(e, tree[1][0], { t0: '_att' });
   };
 
