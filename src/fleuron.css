@@ -9,6 +9,46 @@
   /*--tree0-width-2: calc(5rem * 0.5);*/
 }
 
+.fleuron {
+}
+.flrn {
+  width: 100%;
+  display: flex;
+}
+.flrn-head {
+  width: 2rem;
+}
+.flrn-body {
+  padding-top: 0.4rem;
+}
+.flrn-tree0 {
+  display: inline-block;
+  vertical-align: top;
+}
+.flrn-atts {
+  display: inline-block;
+  margin-left: 0.4rem;
+  /*
+  width: 100%;
+  */
+}
+
+.flrn-head0 {
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 4px solid lightgrey;
+  background-color: white;
+  border-radius: 1.4rem;
+  margin-right: 0.3rem;
+  margin-bottom: 0.1rem;
+  vertical-align: top;
+  /*
+  top: 0;
+  position: relative;
+  top: 30%;
+  */
+}
+
 /*
 .fleuron {
   position: relative;

@@ -24,15 +24,18 @@ var Fleuron = (function() {
 
   var createFleuronDiv = function(elt, tree, name) {
 
-    var c = [ 'fleuron', `flrn-${name}` ];
+    var c = [ 'flrn', `flrn-${name}` ];
     if (name !== tree[0]) c.push(`flrn-${tree[0]}`)
 
     var as = { class: c.join(' '), 'data-flrn-line': tree[2] };
     if (tree[3]) as['data-flrn-file'] = tree[3];
 
     var e = create(elt, 'div', as);
-    create(e, 'div', { class: 'flrn-head' });
-    create(e, 'div', { class: 'flrn-tree0' }, tree[0]);
+
+    var he = create(e, 'div', { class: 'flrn-head' });
+    create(he, 'div', { class: 'flrn-head0' });
+    var be = create(e, 'div', { class: 'flrn-body' });
+    create(be, 'div', { class: 'flrn-tree0' }, tree[0]);
 
     return e;
   };
@@ -42,10 +45,11 @@ var Fleuron = (function() {
   rs._children = function(elt, tree, parent) {
 
 //clog('renderChildren()', elt, tree, parent);
-    if ( ! Array.isArray(tree[1])) { render(ce, tree[1], parent); return elt; }
+    //if ( ! Array.isArray(tree[1])) { render(ce, tree[1], parent); return elt; }
 
-    var ae = create(elt, 'div', { class: 'flrn-attributes' });
-    var ce = create(elt, 'div', { class: 'flrn-children' });
+    var be = elt.querySelector('.flrn-body');
+    var ae = create(be, 'div', { class: 'flrn-atts' });
+    var ce = create(be, 'div', { class: 'flrn-children' });
 
     tree[1].forEach(function(t) {
       if (t[0] === '_att') {
