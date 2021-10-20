@@ -24,15 +24,15 @@ var Fleuron = (function() {
 
   var createFleuronDiv = function(elt, tree, name) {
 
-    var c = [ 'fleuron', `fleuron-${name}` ];
-    if (name !== tree[0]) c.push(`fleuron-${tree[0]}`)
+    var c = [ 'fleuron', `flrn-${name}` ];
+    if (name !== tree[0]) c.push(`flrn-${tree[0]}`)
 
-    var as = { class: c.join(' '), 'data-fleuron-line': tree[2] };
-    if (tree[3]) as['data-fleuron-file'] = tree[3];
+    var as = { class: c.join(' '), 'data-flrn-line': tree[2] };
+    if (tree[3]) as['data-flrn-file'] = tree[3];
 
     var e = create(elt, 'div', as);
-    create(e, 'div', { class: 'fleuron-head' });
-    create(e, 'div', { class: 'fleuron-tree0' }, tree[0]);
+    create(e, 'div', { class: 'flrn-head' });
+    create(e, 'div', { class: 'flrn-tree0' }, tree[0]);
 
     return e;
   };
@@ -44,15 +44,15 @@ var Fleuron = (function() {
 //clog('renderChildren()', elt, tree, parent);
     if ( ! Array.isArray(tree[1])) { render(ce, tree[1], parent); return elt; }
 
-    var ae = create(elt, 'div', { class: 'fleuron-attributes' });
-    var ce = create(elt, 'div', { class: 'fleuron-children' });
+    var ae = create(elt, 'div', { class: 'flrn-attributes' });
+    var ce = create(elt, 'div', { class: 'flrn-children' });
 
     tree[1].forEach(function(t) {
       if (t[0] === '_att') {
         render(ae, t, parent);
       }
       else {
-        var e = create(ce, 'div', { class: 'fleuron-child' });
+        var e = create(ce, 'div', { class: 'flrn-child' });
         render(e, t, parent);
       }
     });
@@ -72,7 +72,7 @@ var Fleuron = (function() {
   rs._leaf = function(elt, tree, parent) {
 //clog('_leaf', elt, tree);
     return create(elt,
-      'div', { class: 'fleuron-_leaf' }, JSON.stringify(tree));
+      'div', { class: 'flrn-_leaf' }, JSON.stringify(tree));
   };
 
   //rs.sequence = function(elt, tree, parent) {
@@ -82,12 +82,12 @@ var Fleuron = (function() {
   //};
   rs._sqs = function(elt, tree, parent) {
     var t = "'" + tree[1].replaceAll(/'/g, "\'") + "'";
-    return create(elt, 'div', { class: 'fleuron-_sqs' }, t);
+    return create(elt, 'div', { class: 'flrn-_sqs' }, t);
   };
   rs._att = function(elt, tree, parent) {
     //var p = { t0: '_att' };
     //return render(elt, tree[1][0], p);
-    var e = create(elt, 'div', { class: 'fleuron-_att' });
+    var e = create(elt, 'div', { class: 'flrn-_att' });
     return render(e, tree[1][0], { t0: '_att' });
   };
 

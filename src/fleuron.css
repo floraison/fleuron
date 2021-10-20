@@ -9,6 +9,7 @@
   /*--tree0-width-2: calc(5rem * 0.5);*/
 }
 
+/*
 .fleuron {
   position: relative;
   display: inline-block;
@@ -33,6 +34,7 @@
   vertical-align: middle;
 }
 
+.fleuron-concurrence > .fleuron-children > .fleuron-child > .fleuron > .fleuron-head,
 .fleuron-sequence > .fleuron-children > .fleuron-child > .fleuron > .fleuron-head {
   width: 1.4rem;
   height: 1.4rem;
@@ -44,13 +46,23 @@
   margin-bottom: 0.1rem;
   background-color: white;
 }
+.fleuron-concurrence > .fleuron-children > .fleuron-child > .fleuron > .fleuron-head {
+}
+
+.fleuron-concurrence > .fleuron-children > .fleuron-child > .fleuron > .fleuron-head::before {
+  content: "";
+  position: absolute;
+  background-color: lightgrey;
+  width: 1rem;
+  height: 4px;
+  top: 0.7rem;
+}
 
 .fleuron-concurrence > .fleuron-children > .fleuron-child > .fleuron > .fleuron-children,
 .fleuron-sequence > .fleuron-children > .fleuron-child > .fleuron > .fleuron-children {
   padding-left: 2rem;
 }
 
-.fleuron-concurrence > .fleuron-children > .fleuron-child:not(:last-child)::before,
 .fleuron-sequence > .fleuron-children > .fleuron-child:not(:last-child)::before {
   content: '';
   position: absolute;
@@ -61,10 +73,9 @@
 }
 
 .fleuron-concurrence > .fleuron-children > .fleuron-child:not(:last-child)::before {
-  left: 2rem;
+  left: 1.5rem;
   height: 30%;
 }
-
 .fleuron-concurrence > .fleuron-children > .fleuron-child > .fleuron > .fleuron-head {
   width: 1.4rem;
   height: 1.4rem;
@@ -73,5 +84,7 @@
   border-radius: 0 0 0 1.4rem;
   position: relative;
   top: -0.65rem;
+  left: -0.5rem;
 }
+*/
 
