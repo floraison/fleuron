@@ -48,19 +48,12 @@
   padding-left: 2rem;
 }
 
-.fleuron-sequence > .fleuron-children > .fleuron-child > .fleuron:not(:first-child) {
-  border: 4px solid grey;
-}
-.fleuron-sequence > .fleuron-children > .fleuron-child:not(:first-child) > .fleuron > .fleuron-head::before {
-  display: block;
-  content: "";
-  width: 4px;
-  height: 100%;
+.fleuron-sequence > .fleuron-children::before {
+  content: '';
   position: absolute;
-  top: -12px;
-  left: 50%;
-  margin-left: -2px;
-  background-color: blue;
-  z-index: -10;
+  background-color: grey;
+  width: 4px;
+  height: 80%;
+  left: 1.85rem;
 }
 
