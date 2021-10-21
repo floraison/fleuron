@@ -42,6 +42,7 @@
   margin-right: 0.3rem;
   margin-bottom: 0.1rem;
   vertical-align: top;
+  position: relative;
 }
 
 .flrn-sequence > .flrn-body::before {
@@ -51,10 +52,20 @@
   width: var(--border-width);
   height: 80%;
   top: 1.6rem;
-  left: 0.8rem;
+  left: 0.85rem;
   z-index: -1;
 }
 .flrn-concurrence > .flrn-head > .flrn-head0 {
   min-height: calc(100% - 0.6rem);
+}
+.flrn-concurrence > .flrn-body > .flrn-children > .flrn-child > .flrn > .flrn-head > .flrn-head0::before {
+  content: "";
+  position: absolute;
+  height: var(--border-width);
+  background-color: var(--border-color);
+  width: 2rem;
+  top: 0.45rem;
+  left: -0.9rem;
+  z-index: -1;
 }
 
