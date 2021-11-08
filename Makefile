@@ -5,13 +5,16 @@ VERSION:=$(shell grep VERSION src/fleuron.js | $(RUBY) -e "puts gets.match(/VERS
 SHA:=$(shell git log -1 --format="%h")
 NOW:=$(shell date)
 COPY:=$(shell grep Copyright LICENSE.txt)
+NORM:=$(shell ls web/css/normalize*)
 
 
 version:
 	@echo $(VERSION)
+	@echo $(NORM)
 v: version
 
 pkg_plain:
+	#
 	mkdir -p pkg
 	#
 	cp src/$(N).js pkg/$(N)-$(VERSION).js
@@ -27,6 +30,15 @@ pkg_plain:
 	echo "" >> pkg/$(N)-$(VERSION).css
 	echo "/* from commit $(SHA) on $(NOW) */" >> pkg/$(N)-$(VERSION).css
 	cp pkg/$(N)-$(VERSION).css pkg/$(N)-$(VERSION)-$(SHA).css
+	#
+	cp $(NORM) pkg/$(N)-$(VERSION).normalized.css
+	echo "" >> pkg/$(N)-$(VERSION).normalized.css
+	echo "/* MIT Licensed */" >> pkg/$(N)-$(VERSION).normalized.css
+	echo "/* $(COPY) */" >> pkg/$(N)-$(VERSION).normalized.css
+	echo "" >> pkg/$(N)-$(VERSION).normalized.css
+	echo "/* from commit $(SHA) on $(NOW) */" >> pkg/$(N)-$(VERSION).normalized.css
+	cat src/$(N).css >> pkg/$(N)-$(VERSION).normalized.css
+	cp pkg/$(N)-$(VERSION).normalized.css pkg/$(N)-$(VERSION)-$(SHA).normalized.css
 
 pkg: pkg_plain
 
