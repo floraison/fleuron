@@ -6,9 +6,9 @@
  */
 
 :root {
-  /*--tree0-width-2: calc(5rem * 0.5);*/
-  --border-width: 4px;
-  --border-color: lightgrey;
+  /*--flrn-tree0-width-2: calc(5rem * 0.5);*/
+  --flrn-border-width: 4px;
+  --flrn-border-color: lightgrey;
 }
 
 .fleuron {
@@ -36,7 +36,7 @@
 .flrn-head0 {
   width: 1.4rem;
   height: 1.4rem;
-  border: var(--border-width) solid var(--border-color);
+  border: var(--flrn-border-width) solid var(--flrn-border-color);
   background-color: white;
   border-radius: 1.4rem;
   margin-right: 0.3rem;
@@ -48,8 +48,8 @@
 .flrn-sequence > .flrn-body::before {
   content: "";
   position: absolute;
-  background-color: var(--border-color);
-  width: var(--border-width);
+  background-color: var(--flrn-border-color);
+  width: var(--flrn-border-width);
   height: 80%;
   top: 1.6rem;
   left: 0.85rem;
@@ -61,8 +61,8 @@
 .flrn-concurrence > .flrn-body > .flrn-children > .flrn-child > .flrn > .flrn-head > .flrn-head0::before {
   content: "";
   position: absolute;
-  height: var(--border-width);
-  background-color: var(--border-color);
+  height: var(--flrn-border-width);
+  background-color: var(--flrn-border-color);
   width: 2rem;
   top: 0.45rem;
   left: -0.9rem;
