@@ -101,6 +101,11 @@ var Fleuron = (function() {
     var t = "'" + tree[1].replaceAll(/'/g, "\'") + "'";
     return create(elt, 'div', { class: 'flrn-_sqs' }, t);
   };
+  rs._ref = function(elt, tree) {
+    var t = tree[1].map(function(t) { return t[1]; }).join('.');
+    return create(elt, 'div', { class: 'flrn-_ref' }, t);
+  };
+
   rs._key = function(elt, tree) {
     var t = tree[0];
     return create(elt, 'div', { class: 'flrn-_att-key' }, t);
