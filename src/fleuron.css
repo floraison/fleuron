@@ -27,6 +27,7 @@
 .flrn-tree0 {
   display: inline-block;
   vertical-align: top;
+  background-color: white;
 }
 .flrn-atts {
   display: inline-block;
@@ -50,7 +51,7 @@
   position: absolute;
   background-color: var(--flrn-border-color);
   width: var(--flrn-border-width);
-  height: 80%;
+  height: 100%;
   top: 1.6rem;
   left: 0.85rem;
   z-index: -1;
@@ -68,4 +69,19 @@
   left: -0.9rem;
   z-index: -1;
 }
+
+.flrn-_att > * {
+  display: inline-block;
+}
+.flrn-_att-key::after {
+  content: ':';
+}
+.flrn-_att-key + * {
+ margin-left: 0.3em;
+}
+/*
+.flrn-_att-key + * {
+  color: blue;
+}
+*/
 

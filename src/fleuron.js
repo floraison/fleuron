@@ -47,10 +47,10 @@ var Fleuron = (function() {
 
   var rs = {};
 
-  rs._children = function(elt, tree, parent) {
+  rs._children = function(elt, tree) {
 
-//clog('renderChildren()', elt, tree, parent);
-    //if ( ! Array.isArray(tree[1])) { render(ce, tree[1], parent); return elt; }
+//clog('renderChildren()', elt, tree);
+    //if ( ! Array.isArray(tree[1])) { render(ce, tree[1]); return elt; }
 
     var be = elt.querySelector('.flrn-body');
     var ae = create(be, 'div', { class: 'flrn-atts' });
@@ -58,11 +58,11 @@ var Fleuron = (function() {
 
     tree[1].forEach(function(t) {
       if (t[0] === '_att') {
-        render(ae, t, parent);
+        render(ae, t);
       }
       else {
         var e = create(ce, 'div', { class: 'flrn-child' });
-        render(e, t, parent);
+        render(e, t);
       }
     });
 
@@ -72,32 +72,57 @@ var Fleuron = (function() {
     return elt;
   };
 
-  rs._default = function(elt, tree, parent) {
-//clog('default', elt, tree);
+  rs._default = function(elt, tree) {
+//clog('_default', elt, tree);
     var e = createFleuronDiv(elt, tree, '_default');
     return renderChildren(e, tree);
   };
 
-  rs._leaf = function(elt, tree, parent) {
+  rs._leaf = function(elt, tree) {
 //clog('_leaf', elt, tree);
     return create(elt,
       'div', { class: 'flrn-_leaf' }, JSON.stringify(tree));
   };
 
-  //rs.sequence = function(elt, tree, parent) {
+  //rs.sequence = function(elt, tree) {
   //  var e = createFleuronDiv(elt, tree, 'sequence');
   //  renderChildren(e, tree);
   //  return e;
   //};
-  rs._sqs = function(elt, tree, parent) {
+  rs._ = function(elt, tree) {
+    var t = '_';
+    return create(elt, 'div', { class: 'flrn-_' }, t);
+  };
+  rs._num = function(elt, tree) {
+    var t = '' + tree[1];
+    return create(elt, 'div', { class: 'flrn-_num' }, t);
+  };
+  rs._sqs = function(elt, tree) {
     var t = "'" + tree[1].replaceAll(/'/g, "\'") + "'";
     return create(elt, 'div', { class: 'flrn-_sqs' }, t);
   };
-  rs._att = function(elt, tree, parent) {
+  rs._key = function(elt, tree) {
+    var t = tree[0];
+    return create(elt, 'div', { class: 'flrn-_att-key' }, t);
+  };
+  rs._att = function(elt, tree) {
     //var p = { t0: '_att' };
     //return render(elt, tree[1][0], p);
+      //
+    //var e = create(elt, 'div', { class: 'flrn-_att' });
+    //return render(e, tree[1][0], { t0: '_att' });
+      //
     var e = create(elt, 'div', { class: 'flrn-_att' });
-    return render(e, tree[1][0], { t0: '_att' });
+    if (tree[1].length === 1) {
+      return render(e, tree[1][0]);
+    }
+    if (tree[1].length === 2) {
+      rs._key(e, tree[1][0]);
+      render(e, tree[1][1]);
+      return e;
+    }
+    //else {
+    //}
   };
 
   // Looks for _fleuron in all parent elements
@@ -118,14 +143,14 @@ var Fleuron = (function() {
 
   var renderChildren = function(elt, tree) {
 
-    getRenderer(elt, '_children')(elt, tree, { t0: tree[0] });
+    getRenderer(elt, '_children')(elt, tree);
 
     return elt;
   };
 
-  var render = function(elt, tree, parent) {
+  var render = function(elt, tree) {
 
-    return getRenderer(elt, tree[0])(elt, tree, parent);
+    return getRenderer(elt, tree[0])(elt, tree);
   };
 
   //
