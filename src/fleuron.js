@@ -24,10 +24,13 @@ var Fleuron = (function() {
     return e;
   };
 
+  var cats = { sequence: '_seq', loop: '_seq', define: '_seq' };
+
   var createFleuronDiv = function(elt, tree, name) {
 
     var c = [ 'flrn', `flrn-${name}` ];
-    if (name !== tree[0]) c.push(`flrn-${tree[0]}`)
+    if (name !== tree[0]) c.push(`flrn-${tree[0]}`);
+    var cat = cats[tree[0]]; if (cat) c.push(`flrn-${cat}`);
 
     var as = { class: c.join(' '), 'data-flrn-line': tree[2] };
     if (tree[3]) as['data-flrn-file'] = tree[3];
