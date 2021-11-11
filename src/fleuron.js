@@ -24,6 +24,8 @@ var Fleuron = (function() {
     return e;
   };
 
+  var dup = function(o) { return JSON.parse(JSON.stringify(o)); };
+
   var cats = { sequence: '_seq', loop: '_seq', define: '_seq' };
 
   var createFleuronDiv = function(elt, tree, name) {
@@ -130,6 +132,21 @@ var Fleuron = (function() {
     //}
   };
 
+  var rws = {};
+
+  rws._if = function(tree) {
+    var l = tree[2];
+    var t = dup(tree[1][1]);
+    t[1].push([ '_att', [ [ 'if', [], l ], dup(tree[1][0]) ], l ]);
+    return t;
+  };
+
+  var rewrite = function(tree) {
+
+    var rw = rws[tree[0]];
+    return rw ? rw(tree) : tree;
+  };
+
   // Looks for _fleuron in all parent elements
   //
   var findFleurons = function(elt) {
@@ -155,7 +172,9 @@ var Fleuron = (function() {
 
   var render = function(elt, tree) {
 
-    return getRenderer(elt, tree[0])(elt, tree);
+    var t = rewrite(tree);
+
+    return getRenderer(elt, t[0])(elt, t);
   };
 
   //
