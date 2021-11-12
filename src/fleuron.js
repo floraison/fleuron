@@ -43,9 +43,12 @@ var Fleuron = (function() {
     var e = create(elt, 'div', as);
 
     var he = create(e, 'div', { class: 'flrn-head' });
-    create(he, 'div', { class: 'flrn-head0' });
+    var h0e = create(he, 'div', { class: 'flrn-head0' });
     var be = create(e, 'div', { class: 'flrn-body' });
     create(be, 'div', { class: 'flrn-tree0' }, tree[0]);
+
+    //h0e.title = 'nid: ' + tree[4];
+    H.setAtt(e, '-flrn-nid', tree[4]);
 
     return e;
   };
@@ -151,8 +154,7 @@ var Fleuron = (function() {
     return t === 'string' || t === 'number' || t === 'boolean'; };
   var isExpression = function(t) {
     return (
-      Array.isArray(t) &&
-      (t.length === 3 || t.length === 4) &&
+      Array.isArray(t) && t.length === 5 &&
       isString(t[0]) &&
       (isLeaf(t[1]) || isExpressions(t[1])) &&
       Number.isInteger(t[2]) &&
@@ -217,13 +219,27 @@ var Fleuron = (function() {
     return getRenderer(elt, t[0])(elt, t);
   };
 
+  var nidify = function(t, nid) {
+
+    if ( ! Array.isArray(t)) return;
+    if (t.length < 4) { t.push(undefined); } t.push(nid);
+
+    if (Array.isArray(t[1])) t[1].forEach(function(tt, i) {
+      nidify(tt, nid + '_' + i);
+    });
+
+    return t;
+  };
+
   //
   // public functions
 
   this.render = function(elt, tree) {
 
+    var t = nidify(dup(tree), '0');
+
     clean(elt);
-    render(elt, tree, null);
+    render(elt, t, null);
   };
 
   //
