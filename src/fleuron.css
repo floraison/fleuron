@@ -56,6 +56,14 @@
   left: 0.85rem;
   z-index: -1;
 }
+
+.flrn-_cmp * {
+  display: inline-block;
+}
+.flrn-_cmp .flrn-child {
+  margin-right: 0.3em;
+}
+
 .flrn-concurrence > .flrn-head > .flrn-head0 {
   min-height: calc(100% - 0.6rem);
 }
@@ -84,4 +92,8 @@
   color: blue;
 }
 */
+
+.flrn-_att-key + * > .flrn-head {
+  display: none;
+}
 

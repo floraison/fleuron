@@ -26,7 +26,10 @@ var Fleuron = (function() {
 
   var dup = function(o) { return JSON.parse(JSON.stringify(o)); };
 
-  var cats = { sequence: '_seq', loop: '_seq', define: '_seq' };
+  var cats = {
+    sequence: '_seq', loop: '_seq', define: '_seq',
+    '==': '_cmp', '!=': '_cmp'
+      };
 
   var createFleuronDiv = function(elt, tree, name) {
 
