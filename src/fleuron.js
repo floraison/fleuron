@@ -144,10 +144,47 @@ var Fleuron = (function() {
     return t;
   };
 
+  var isString = function(o) {
+    return (typeof o) === 'string'; };
+  var isLeaf = function(o) {
+    var t = (typeof o);
+    return t === 'string' || t === 'number' || t === 'boolean'; };
+  var isExpression = function(t) {
+    return (
+      Array.isArray(t) &&
+      (t.length === 3 || t.length === 4) &&
+      isString(t[0]) &&
+      (isLeaf(t[1]) || isExpressions(t[1])) &&
+      Number.isInteger(t[2]) &&
+      (t[3] === undefined || isString(t[3]))); };
+  var isExpressions = function(a) {
+    return (Array.isArray(a) && a.every(isExpression)); };
+  var isAttUnderscoreExpression = function(t) {
+    return(
+      isExpression(t) &&
+      t[0] === '_att' &&
+      isExpressions(t[1]) && t[1].length === 1 && isExpression(t[1][0]) &&
+      t[1][0][0] === '_' && Array.isArray(t[1][0][1]) &&
+        t[1][0][1].length === 0); };
+
+  var rewriteUnderscore = function(tree) {
+    if (
+      isExpressions(tree[1]) &&
+      tree[1].length > 1 &&
+      isAttUnderscoreExpression(tree[1][0])
+    ) {
+      tree[1].shift();
+    }
+    return tree;
+  };
+
   var rewrite = function(tree) {
 
     var rw = rws[tree[0]];
-    return rw ? rw(tree) : tree;
+    var t = rw ? rw(tree) : tree;
+    t = rewriteUnderscore(t);
+
+    return t;
   };
 
   // Looks for _fleuron in all parent elements
