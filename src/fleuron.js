@@ -92,11 +92,6 @@ var Fleuron = (function() {
       'div', { class: 'flrn-_leaf' }, JSON.stringify(tree));
   };
 
-  //rs.sequence = function(elt, tree) {
-  //  var e = createFleuronDiv(elt, tree, 'sequence');
-  //  renderChildren(e, tree);
-  //  return e;
-  //};
   rs._ = function(elt, tree) {
     var t = '_';
     return create(elt, 'div', { class: 'flrn-_' }, t);
@@ -119,72 +114,72 @@ var Fleuron = (function() {
     return create(elt, 'div', { class: 'flrn-_att-key' }, t);
   };
   rs._att = function(elt, tree) {
-    //var p = { t0: '_att' };
-    //return render(elt, tree[1][0], p);
-      //
-    //var e = create(elt, 'div', { class: 'flrn-_att' });
-    //return render(e, tree[1][0], { t0: '_att' });
-      //
     var e = create(elt, 'div', { class: 'flrn-_att' });
     if (tree[1].length === 1) {
       return render(e, tree[1][0]);
     }
-    if (tree[1].length === 2) {
+    //if (tree[1].length === 2) {
       rs._key(e, tree[1][0]);
       render(e, tree[1][1]);
       return e;
-    }
-    //else {
     //}
   };
 
   var rws = {};
 
   rws._if = function(tree) {
+
     var l = tree[2];
-    var t = dup(tree[1][1]);
-    t[1].push([ '_att', [ [ 'if', [], l ], dup(tree[1][0]) ], l ]);
+    var t = tree[1][1];
+    var n = tree[4];
+
+    t[1].push(
+      [ '_att', [
+        [ 'if', [], l, undefined, n ], tree[1][0]
+      ], l, undefined, n ]);
+
     return t;
   };
 
-  var isString = function(o) {
-    return (typeof o) === 'string'; };
-  var isLeaf = function(o) {
-    var t = (typeof o);
-    return t === 'string' || t === 'number' || t === 'boolean'; };
-  var isExpression = function(t) {
-    return (
-      Array.isArray(t) && t.length === 5 &&
-      isString(t[0]) &&
-      (isLeaf(t[1]) || isExpressions(t[1])) &&
-      Number.isInteger(t[2]) &&
-      (t[3] === undefined || isString(t[3]))); };
-  var isExpressions = function(a) {
-    return (Array.isArray(a) && a.every(isExpression)); };
-  var isAttUnderscoreExpression = function(t) {
-    return(
-      isExpression(t) &&
-      t[0] === '_att' &&
-      isExpressions(t[1]) && t[1].length === 1 && isExpression(t[1][0]) &&
-      t[1][0][0] === '_' && Array.isArray(t[1][0][1]) &&
-        t[1][0][1].length === 0); };
+  //var isString = function(o) {
+  //  return (typeof o) === 'string'; };
+  //var isLeaf = function(o) {
+  //  var t = (typeof o);
+  //  return t === 'string' || t === 'number' || t === 'boolean'; };
+  //var isExpression = function(t) {
+  //  return (
+  //    Array.isArray(t) && t.length === 5 &&
+  //    isString(t[0]) &&
+  //    (isLeaf(t[1]) || isExpressions(t[1])) &&
+  //    Number.isInteger(t[2]) &&
+  //    (t[3] === undefined || isString(t[3]))); };
+  //var isExpressions = function(a) {
+  //  return (Array.isArray(a) && a.every(isExpression)); };
+    //
+  //var isAttUnderscoreExpression = function(t) {
+  //  return(
+  //    isExpression(t) &&
+  //    t[0] === '_att' &&
+  //    isExpressions(t[1]) && t[1].length === 1 && isExpression(t[1][0]) &&
+  //    t[1][0][0] === '_' && Array.isArray(t[1][0][1]) &&
+  //      t[1][0][1].length === 0); };
 
-  var rewriteUnderscore = function(tree) {
-    if (
-      isExpressions(tree[1]) &&
-      tree[1].length > 1 &&
-      isAttUnderscoreExpression(tree[1][0])
-    ) {
-      tree[1].shift();
-    }
-    return tree;
-  };
+  //var rewriteUnderscore = function(tree) {
+  //  if (
+  //    isExpressions(tree[1]) &&
+  //    tree[1].length > 1 &&
+  //    isAttUnderscoreExpression(tree[1][0])
+  //  ) {
+  //    tree[1].shift();
+  //  }
+  //  return tree;
+  //};
 
   var rewrite = function(tree) {
 
     var rw = rws[tree[0]];
     var t = rw ? rw(tree) : tree;
-    t = rewriteUnderscore(t);
+    //t = rewriteUnderscore(t);
 
     return t;
   };
