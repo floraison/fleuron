@@ -88,12 +88,6 @@ var Fleuron = (function() {
     return renderChildren(e, tree);
   };
 
-  rs._leaf = function(elt, tree) {
-//clog('_leaf', elt, tree);
-    return create(elt,
-      'div', { class: 'flrn-_leaf' }, JSON.stringify(tree));
-  };
-
   rs._ = function(elt, tree) {
     var t = '_';
     return create(elt, 'div', { class: 'flrn-_' }, t);
