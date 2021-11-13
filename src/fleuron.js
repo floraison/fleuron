@@ -88,6 +88,15 @@ var Fleuron = (function() {
     return renderChildren(e, tree);
   };
 
+  rs._setter = function(elt, tree) {
+    var e = rs._default(elt, tree);
+    e.className = e.className + ' flrn-_setter';
+    e.querySelector('.flrn-atts').innerHTML = tree[1][0][1][0][0];
+    return e;
+  }
+  rs.set = rs._setter;
+  rs.define = rs._setter;
+
   rs._ = function(elt, tree) {
     var t = '_';
     return create(elt, 'div', { class: 'flrn-_' }, t);
