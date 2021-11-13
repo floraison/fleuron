@@ -213,6 +213,27 @@ var Fleuron = (function() {
     render(elt, t, null);
   };
 
+  this.highlight = function(elt, nid, kla, title) {
+
+    var n = nid.split('-')[0];
+
+    var e = elt.querySelector('[data-flrn-nid="' + n + '"]');
+    if ( ! e) return;
+
+    var ks = null;
+    if (typeof kla === 'string') ks = kla.split(' ');
+    else if (Array.isArray(kla)) ks = kla;
+    else ks = [];
+
+    clog(e);
+
+    e.className = e.className + ' ' + ks.join(' ');
+    if (title) {
+      e.querySelector('.flrn-head0').title = title;
+      e.querySelector('.flrn-tree0').title = title;
+    }
+  };
+
   //
   // done.
 
