@@ -12,6 +12,7 @@
 }
 
 .fleuron {
+  font-family: monospace;
 }
 .flrn {
   width: 100%;
@@ -27,7 +28,7 @@
 .flrn-tree0 {
   display: inline-block;
   vertical-align: top;
-  background-color: white;
+  margin-left: 0.2rem;
 }
 .flrn-atts {
   display: inline-block;
@@ -51,7 +52,7 @@
   position: absolute;
   background-color: var(--flrn-border-color);
   width: var(--flrn-border-width);
-  height: 100%;
+  height: calc(100% - 3rem);
   top: 1.6rem;
   left: 0.85rem;
   z-index: -1;
