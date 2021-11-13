@@ -13,6 +13,7 @@
 
 .fleuron {
   font-family: monospace;
+  padding: 0.3rem 0;
 }
 .flrn {
   width: 100%;
@@ -20,10 +21,10 @@
 }
 .flrn-head {
   width: 2rem;
+  position: relative;
 }
 .flrn-body {
   padding-top: 0.4rem;
-  position: relative;
 }
 .flrn-tree0 {
   display: inline-block;
@@ -47,14 +48,14 @@
   position: relative;
 }
 
-.flrn-_seq > .flrn-body::before {
+.flrn-_seq > .flrn-body > .flrn-children > .flrn-child:not(:last-child) > .flrn > .flrn-head::before {
   content: "";
-  position: absolute;
-  background-color: var(--flrn-border-color);
   width: var(--flrn-border-width);
-  height: calc(100% - 3rem);
-  top: 1.6rem;
+  height: 100%;
+  background-color: var(--flrn-border-color);
+  top: 1rem;
   left: 0.85rem;
+  position: absolute;
   z-index: -1;
 }
 
