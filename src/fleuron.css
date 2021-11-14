@@ -20,6 +20,7 @@
   display: flex;
 }
 .flrn-head {
+  margin-top: 0.21rem;
   width: 2rem;
   position: relative;
 }
