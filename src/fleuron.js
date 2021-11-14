@@ -137,13 +137,14 @@ var Fleuron = (function() {
 
   rws._if = function(tree) {
 
+    var t0 = tree[0] === '_if' ? 'if' : 'unless';
     var l = tree[2];
     var t = tree[1][1];
     var n = tree[4];
 
     t[1].push(
       [ '_att', [
-        [ 'if', [], l, undefined, n ], tree[1][0]
+        [ t0, [], l, undefined, n ], tree[1][0]
       ], l, undefined, n ]);
 
     if (t[1].length > 1 && t[1][0][0] === '_att' && t[1][0][1][0][0] === '_') {
@@ -152,6 +153,7 @@ var Fleuron = (function() {
 
     return t;
   };
+  rws._unless = rws._if;
 
   var rewrite = function(tree) {
 
