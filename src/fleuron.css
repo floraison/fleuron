@@ -89,11 +89,6 @@
 .flrn-_att-key + * {
  margin-left: 0.3em;
 }
-/*
-.flrn-_att-key + * {
-  color: blue;
-}
-*/
 
 .flrn-_att-key + * > .flrn-head {
   display: none;
@@ -108,5 +103,14 @@
   color: #0060a9;
   border-color: #0060a9;
   background-color: #fd0;
+}
+.flrn-concurrence > .flrn-body > .flrn-children > .flrn-child > .flrn-visited > .flrn-head > .flrn-head0::before {
+  background-color: #0060a9 !important;
+}
+.flrn-concurrence > .flrn-body > .flrn-children > .flrn-child > .flrn-active > .flrn-head > .flrn-head0::before {
+  background-color: #0060a9 !important;
+}
+.flrn-linked > .flrn-head::before {
+  background-color: #0060a9 !important;
 }
 

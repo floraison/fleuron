@@ -217,9 +217,9 @@ var Fleuron = (function() {
     else if (Array.isArray(kla)) ks = kla;
     else ks = [];
 
-    ks = ks.map(function(k) { return k.slice(0, 1) === '.' ? k.slice(1) : k; });
-
-    return ks;
+    return ks
+      .map(function(k) { return k.slice(0, 1) === '.' ? k.slice(1) : k; })
+      .filter(function(k) { return k.length > 0; });
   };
 
   //
@@ -283,10 +283,14 @@ var Fleuron = (function() {
 
       if ( ! (pe && pe.classList.contains('flrn-_con'))) {
 
+        var seen = false;
+
         var ce = e.closest('.flrn-child'); while (true) {
           if ( ! ce) break;
           var ee = ce.querySelector('[data-flrn-nid]');
-          ee.className = ee.className + ' ' + ks.join(' ');
+          ks.forEach(function(k) { ee.classList.add(k); });
+          if (seen) pks.forEach(function(k) { ee.classList.add(k); });
+          seen = true;
           ce = ce.previousElementSibling;
         }
       }
