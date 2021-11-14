@@ -48,7 +48,7 @@ var Fleuron = (function() {
     create(be, 'div', { class: 'flrn-tree0' }, tree[0]);
 
     //h0e.title = 'nid: ' + tree[4];
-    H.setAtt(e, '-flrn-nid', tree[4]);
+    e.setAttribute('data-flrn-nid', tree[4]);
 
     return e;
   };
@@ -212,7 +212,7 @@ var Fleuron = (function() {
 
     var ks = null;
 
-    if (typeof kla === 'string') ks = kla.split(' ');
+    if (typeof kla === 'string') ks = kla.split(/(\s*\.|\s+)/);
     else if (Array.isArray(kla)) ks = kla;
     else ks = [];
 
@@ -264,11 +264,12 @@ var Fleuron = (function() {
     }
   };
 
-  this.trail = function(elt, nid, kla) {
+  this.trail = function(elt, nid, kla, prekla) {
 
     var e0 = locate(elt);
     var n = nid.split('-')[0];
     var ks = splitClasses(kla);
+    var pks = splitClasses(prekla);
 
     var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return;
