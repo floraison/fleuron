@@ -208,6 +208,19 @@ var Fleuron = (function() {
     return elt;
   };
 
+  var splitClasses = function(kla) {
+
+    var ks = null;
+
+    if (typeof kla === 'string') ks = kla.split(' ');
+    else if (Array.isArray(kla)) ks = kla;
+    else ks = [];
+
+    ks = ks.map(function(k) { return k.slice(0, 1) === '.' ? k.slice(1) : k; });
+
+    return ks;
+  };
+
   //
   // public functions
 
@@ -224,19 +237,54 @@ var Fleuron = (function() {
 
     var e0 = locate(elt);
     var n = nid.split('-')[0];
+    var ks = splitClasses(kla);
 
     var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return;
-
-    var ks = null;
-    if (typeof kla === 'string') ks = kla.split(' ');
-    else if (Array.isArray(kla)) ks = kla;
-    else ks = [];
 
     e.className = e.className + ' ' + ks.join(' ');
     if (title) {
       e.querySelector('.flrn-head0').title = title;
       e.querySelector('.flrn-tree0').title = title;
+    }
+  };
+
+  this.descend = function(elt, nid, kla) {
+
+    var e0 = locate(elt);
+    var n = nid.split('-')[0];
+    var ks = splitClasses(kla);
+
+    var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
+    if ( ! e) return;
+
+    while (true) {
+      e.className = e.className + ' ' + ks.join(' ');
+      e = e.parentElement.closest('[data-flrn-nid]'); if ( ! e) break;
+    }
+  };
+
+  this.trail = function(elt, nid, kla) {
+
+    var e0 = locate(elt);
+    var n = nid.split('-')[0];
+    var ks = splitClasses(kla);
+
+    var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
+    if ( ! e) return;
+
+    while (true) {
+
+      e.className = e.className + ' ' + ks.join(' ');
+
+      var ce = e.closest('.flrn-child'); while (true) {
+        if ( ! ce) break;
+        var ee = ce.querySelector('[data-flrn-nid]');
+        ee.className = ee.className + ' ' + ks.join(' ');
+        ce = ce.previousElementSibling;
+      }
+
+      e = e.parentElement.closest('[data-flrn-nid]'); if ( ! e) break;
     }
   };
 

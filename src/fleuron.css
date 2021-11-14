@@ -99,3 +99,14 @@
   display: none;
 }
 
+.flrn-visited > .flrn-head > .flrn-head0 {
+  color: #0060a9;
+  border-color: #0060a9;
+  background: white;
+}
+.flrn-active > .flrn-head > .flrn-head0 { /* active > visited */
+  color: #0060a9;
+  border-color: #0060a9;
+  background-color: #fd0;
+}
+

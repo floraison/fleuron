@@ -19,8 +19,17 @@ var Demo = (function() {
 
   var parseAndRender = function() {
     var tree = JSON.parse(textarea.value);
-clog('parseAndRender', tree);
+//clog('parseAndRender', tree);
     Fleuron.render(fleuron, tree);
+
+    Fleuron.highlight(fleuron, '0_1_1_0_2_1_0', '.flrn-active', 'HERE!!!');
+    Fleuron.highlight(fleuron, '0_1_1_0_2_2_3', '.flrn-active', 'HERE!!!');
+
+    //Fleuron.descend(fleuron, '0_1_1_0_2_1_0', '.flrn-visited');
+    //Fleuron.descend(fleuron, '0_1_1_0_2_2_3', '.flrn-visited');
+
+    Fleuron.trail(fleuron, '0_1_1_0_2_1_0', '.flrn-visited');
+    Fleuron.trail(fleuron, '0_1_1_0_2_2_3', '.flrn-visited');
   };
 
   var onFlowLoaded = function(res) {
