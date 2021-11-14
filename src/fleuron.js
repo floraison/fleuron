@@ -202,30 +202,36 @@ var Fleuron = (function() {
     return t;
   };
 
+  var locate = function(elt) {
+
+    if (typeof elt === 'string') return document.querySelector(elt);
+    return elt;
+  };
+
   //
   // public functions
 
   this.render = function(elt, tree) {
 
+    var e = locate(elt);
     var t = nidify(dup(tree), '0');
 
-    clean(elt);
-    render(elt, t, null);
+    clean(e);
+    render(e, t, null);
   };
 
   this.highlight = function(elt, nid, kla, title) {
 
+    var e0 = locate(elt);
     var n = nid.split('-')[0];
 
-    var e = elt.querySelector('[data-flrn-nid="' + n + '"]');
+    var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return;
 
     var ks = null;
     if (typeof kla === 'string') ks = kla.split(' ');
     else if (Array.isArray(kla)) ks = kla;
     else ks = [];
-
-    clog(e);
 
     e.className = e.className + ' ' + ks.join(' ');
     if (title) {
