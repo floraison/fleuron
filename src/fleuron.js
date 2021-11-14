@@ -28,6 +28,7 @@ var Fleuron = (function() {
 
   var cats = {
     sequence: '_seq', loop: '_seq', cursor: '_seq', define: '_seq',
+    concurrence: '_con',
     '==': '_cmp', '!=': '_cmp'
       };
 
@@ -278,11 +279,16 @@ var Fleuron = (function() {
 
       e.className = e.className + ' ' + ks.join(' ');
 
-      var ce = e.closest('.flrn-child'); while (true) {
-        if ( ! ce) break;
-        var ee = ce.querySelector('[data-flrn-nid]');
-        ee.className = ee.className + ' ' + ks.join(' ');
-        ce = ce.previousElementSibling;
+      var pe = e.parentElement.closest('[data-flrn-nid]');
+
+      if ( ! (pe && pe.classList.contains('flrn-_con'))) {
+
+        var ce = e.closest('.flrn-child'); while (true) {
+          if ( ! ce) break;
+          var ee = ce.querySelector('[data-flrn-nid]');
+          ee.className = ee.className + ' ' + ks.join(' ');
+          ce = ce.previousElementSibling;
+        }
       }
 
       e = e.parentElement.closest('[data-flrn-nid]'); if ( ! e) break;
