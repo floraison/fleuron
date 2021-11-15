@@ -13,8 +13,14 @@ var Fleuron = (function() {
   // protected functions
 
   var toggleCollapse = function(ev) {
-    var e = ev.target.closest('[data-flrn-nid]');
-    if (e) e.classList.toggle('flrn-collapsed');
+
+    var t = ev.target ? ev.target : ev;
+    var e = t.closest('[data-flrn-nid]');
+
+    if ( ! e) return;
+    if (e.querySelector('.flrn-children').children.length < 1) return;
+
+    e.classList.toggle('flrn-collapsed');
   };
 
   var clean = function(elt) {
