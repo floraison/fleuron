@@ -137,3 +137,10 @@
   z-index: 9;
 }
 
+.flrn-_att > .flrn > .flrn-head {
+  display: none;
+}
+.flrn-_att > .flrn > .flrn-body {
+  padding-top: 0;
+}
+
