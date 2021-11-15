@@ -47,7 +47,6 @@
   margin-bottom: 0.1rem;
   vertical-align: top;
   position: relative;
-  cursor: pointer;
 }
 
 .flrn-_seq > .flrn-body > .flrn-children > .flrn-child:not(:last-child) > .flrn > .flrn-head::before {
@@ -116,6 +115,9 @@
   background-color: #0060a9 !important;
 }
 
+.flrn-collapsable {
+  cursor: pointer;
+}
 .flrn-collapsed > .flrn-body > .flrn-children {
   display: none;
 }

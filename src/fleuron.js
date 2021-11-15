@@ -202,6 +202,11 @@ var Fleuron = (function() {
 
     getRenderer(elt, '_children')(elt, tree);
 
+    var cn = elt.querySelector(':scope > .flrn-body > .flrn-children');
+    if (cn && cn.children.length > 0) {
+      elt.querySelector('.flrn-head0').classList.add('flrn-collapsable');
+    }
+
     return elt;
   };
 
