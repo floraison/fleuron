@@ -44,7 +44,8 @@ var Fleuron = (function() {
   var dup = function(o) { return JSON.parse(JSON.stringify(o)); };
 
   var cats = {
-    sequence: '_seq', loop: '_seq', cursor: '_seq', define: '_seq',
+    sequence: '_seq', loop: '_seq', cursor: '_seq',
+    define: '_seq', def: '_seq',
     concurrence: '_con',
     '==': '_cmp', '!=': '_cmp'
       };
