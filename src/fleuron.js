@@ -14,13 +14,19 @@ var Fleuron = (function() {
 
   var toggleCollapse = function(ev) {
 
-    var t = ev.target ? ev.target : ev;
-    var e = t.closest('[data-flrn-nid]');
+    var e = ev.target.closest('[data-flrn-nid]');
 
     if ( ! e) return;
     if (e.querySelector('.flrn-children').children.length < 1) return;
 
     e.classList.toggle('flrn-collapsed');
+  };
+
+  var doCollapse = function(elt) {
+
+    if (elt.querySelector('.flrn-children').children.length < 1) return;
+
+    elt.classList.add('flrn-collapsed');
   };
 
   var clean = function(elt) {
@@ -312,6 +318,30 @@ var Fleuron = (function() {
 
       e = e.parentElement.closest('[data-flrn-nid]'); if ( ! e) break;
     }
+  };
+
+  this.collapse = function(/*elt, arguments*/) {
+
+    var as = Array.from(arguments);
+    var elt = locate(as.shift());
+
+    as.forEach(function(a, i) {
+      var es = null;
+      if (a.match(/^\d/)) {
+        es = elt.querySelectorAll('[data-flrn-nid="' + a + '"]');
+      }
+      else {
+        es = elt.querySelectorAll('.flrn.flrn-' + a);
+      }
+      es.forEach(doCollapse);
+    });
+  };
+
+  this.uncollapse = function(elt) {
+
+    locate(elt).querySelectorAll('.flrn-collapsed').forEach(function(e) {
+      e.classList.remove('flrn-collapsed');
+    });
   };
 
   //
