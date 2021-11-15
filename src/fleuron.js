@@ -12,6 +12,11 @@ var Fleuron = (function() {
   //
   // protected functions
 
+  var toggleCollapse = function(ev) {
+    var e = ev.target.closest('[data-flrn-nid]');
+    if (e) e.classList.toggle('flrn-collapsed');
+  };
+
   var clean = function(elt) {
     while (elt.firstChild) elt.removeChild(elt.firstChild);
   };
@@ -50,6 +55,8 @@ var Fleuron = (function() {
 
     //h0e.title = 'nid: ' + tree[4];
     e.setAttribute('data-flrn-nid', tree[4]);
+
+    h0e.addEventListener('click', toggleCollapse);
 
     return e;
   };

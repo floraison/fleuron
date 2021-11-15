@@ -47,6 +47,7 @@
   margin-bottom: 0.1rem;
   vertical-align: top;
   position: relative;
+  cursor: pointer;
 }
 
 .flrn-_seq > .flrn-body > .flrn-children > .flrn-child:not(:last-child) > .flrn > .flrn-head::before {
@@ -113,5 +114,24 @@
 }
 .flrn-linked > .flrn-head::before {
   background-color: #0060a9 !important;
+}
+
+.flrn-collapsed > .flrn-body > .flrn-children {
+  display: none;
+}
+.flrn-collapsed > .flrn-head > .flrn-head0::after {
+  content: "";
+  position: absolute;
+  height: 0.5rem;
+  width: 0.5rem;
+  bottom: 0.1rem;
+  right: 0.1rem;
+  background-color: var(--flrn-border-color);
+  /*
+  top: 0.6rem;
+  left: -0.9rem;
+  */
+  border-radius: 1.4rem;
+  z-index: 9;
 }
 
