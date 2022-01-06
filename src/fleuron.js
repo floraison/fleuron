@@ -268,13 +268,15 @@ var Fleuron = (function() {
     var ks = splitClasses(kla);
 
     var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
-    if ( ! e) return;
+    if ( ! e) return null;
 
     e.className = e.className + ' ' + ks.join(' ');
     if (title) {
       e.querySelector('.flrn-head0').title = title;
       e.querySelector('.flrn-tree0').title = title;
     }
+
+    return e;
   };
 
   this.descend = function(elt, nid, kla) {
@@ -284,12 +286,14 @@ var Fleuron = (function() {
     var ks = splitClasses(kla);
 
     var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
-    if ( ! e) return;
+    if ( ! e) return null;;
 
     while (true) {
       e.className = e.className + ' ' + ks.join(' ');
       e = e.parentElement.closest('[data-flrn-nid]'); if ( ! e) break;
     }
+
+    return e;
   };
 
   this.trail = function(elt, nid, kla, prekla) {
