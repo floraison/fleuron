@@ -144,3 +144,8 @@
   padding-top: 0;
 }
 
+
+.flrn-error > .flrn-head > .flrn-head0 {
+  border-color: #ff0000;
+}
+
