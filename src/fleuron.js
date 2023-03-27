@@ -23,17 +23,16 @@ var Fleuron = (function() {
 
     var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
 
-    if (ev.shiftKey && ev.ctrlKey) {
-      self.clearAllMarkers(elt);
-      elt.classList.add('delete-marker');
-    }
-    else if (ev.shiftKey) {
-      self.clearAllMarkers(elt);
-      elt.classList.add('cancel-marker');
-    }
-    else {
-      toggleCollapse(elt, ev);
-    }
+    if (
+      elt.classList.contains('cancel-marker') ||
+      elt.classList.contains('delete-marker')
+    ) { self.clearAllMarkers(elt); return; }
+
+    if (ev.shiftKey) self.clearAllMarkers(elt);
+
+    if (ev.shiftKey && ev.ctrlKey) elt.classList.add('delete-marker');
+    else if (ev.shiftKey) elt.classList.add('cancel-marker');
+    else toggleCollapse(elt, ev);
 
     if (ev.shiftKey) window.getSelection().removeAllRanges();
       // prevent click on node selecting text...
