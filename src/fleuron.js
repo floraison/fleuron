@@ -116,6 +116,8 @@ var Fleuron = (function() {
     create(be, 'div', { class: 'flrn-tree0' }, tree[0]);
 
     //h0e.title = 'nid: ' + tree[4];
+    h0e.title = `line ${1 + tree[2]} / nid ${tree[4]}`;
+
     e.setAttribute('data-flrn-nid', tree[4]);
 
     h0e.addEventListener('click', nodeClick);
