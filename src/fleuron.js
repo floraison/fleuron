@@ -142,14 +142,13 @@ var Fleuron = (function() {
   };
 
   rs._default = function(elt, tree) {
-//clog('_default', elt, tree);
     var e = createFleuronDiv(elt, tree, '_default');
     return renderChildren(e, tree);
   };
 
   rs._setter = function(elt, tree) {
     var e = rs._default(elt, tree);
-    e.className = e.className + ' flrn-_setter';
+    e.classList.add('flrn-_setter');
     e.querySelector('.flrn-atts').innerHTML = tree[1][0][1][0][0];
     return e;
   }
@@ -283,6 +282,7 @@ var Fleuron = (function() {
     else ks = [];
 
     return ks
+      .map(function(k) { return k.trim(); })
       .map(function(k) { return k.slice(0, 1) === '.' ? k.slice(1) : k; })
       .filter(function(k) { return k.length > 0; });
   };
@@ -299,6 +299,12 @@ var Fleuron = (function() {
     render(e, t, null);
   };
 
+  var addClasses = function(elt, klas) {
+
+    //klas.forEach(function(k) { elt.classList.add(k); });
+    elt.classList.add(...klas);
+  };
+
   this.highlight = function(elt, nid, kla, title) {
 
     var e0 = locate(elt);
@@ -308,7 +314,8 @@ var Fleuron = (function() {
     var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return null;
 
-    e.className = e.className + ' ' + ks.join(' ');
+    addClasses(e, ks);
+
     if (title) {
       e.querySelector('.flrn-head0').title = title;
       e.querySelector('.flrn-tree0').title = title;
@@ -327,7 +334,7 @@ var Fleuron = (function() {
     if ( ! e) return null;;
 
     while (true) {
-      e.className = e.className + ' ' + ks.join(' ');
+      addClasses(e, ks);
       e = e.parentElement.closest('[data-flrn-nid]'); if ( ! e) break;
     }
 
@@ -346,7 +353,7 @@ var Fleuron = (function() {
 
     while (true) {
 
-      e.className = e.className + ' ' + ks.join(' ');
+      addClasses(e, ks);
 
       var pe = e.parentElement.closest('[data-flrn-nid]');
 
@@ -357,8 +364,8 @@ var Fleuron = (function() {
         var ce = e.closest('.flrn-child'); while (true) {
           if ( ! ce) break;
           var ee = ce.querySelector('[data-flrn-nid]');
-          ks.forEach(function(k) { ee.classList.add(k); });
-          if (seen) pks.forEach(function(k) { ee.classList.add(k); });
+          addClasses(ee, ks);
+          if (seen) addClasses(ee, pks);
           seen = true;
           ce = ce.previousElementSibling;
         }
