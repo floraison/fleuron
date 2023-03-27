@@ -1,11 +1,11 @@
 
-N:=fleuron
-RUBY:=ruby
-VERSION:=$(shell grep VERSION src/fleuron.js | $(RUBY) -e "puts gets.match(/VERSION = '([\d\.]+)/)[1]")
-SHA:=$(shell git log -1 --format="%h")
-NOW:=$(shell date)
-COPY:=$(shell grep Copyright LICENSE.txt)
-NORM:=$(shell ls web/css/normalize*)
+N = fleuron
+RUBY = ruby
+VERSION != grep VERSION src/fleuron.js | $(RUBY) -e "puts gets.match(/VERSION = '([\d\.]+)/)[1]"
+SHA != git log -1 --format="%h"
+NOW != date
+COPY != grep Copyright LICENSE.txt
+NORM != ls web/css/normalize*
 
 
 version:
@@ -39,13 +39,19 @@ pkg_plain:
 	echo "/* from commit $(SHA) on $(NOW) */" >> pkg/$(N)-$(VERSION).normalized.css
 	cat src/$(N).css >> pkg/$(N)-$(VERSION).normalized.css
 	cp pkg/$(N)-$(VERSION).normalized.css pkg/$(N)-$(VERSION)-$(SHA).normalized.css
+	@echo
+	ls -al pkg/$(N)-$(VERSION)*
+	@echo
 
 pkg: pkg_plain
+
+clean:
+	rm -fR pkg/
 
 serve:
 	$(RUBY) -run -ehttpd web/ -p8001
 s: serve
 
 
-.PHONY: serve version pkg
+.PHONY: serve version pkg clean
 
