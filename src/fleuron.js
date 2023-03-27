@@ -12,14 +12,63 @@ var Fleuron = (function() {
   //
   // protected functions
 
-  var toggleCollapse = function(ev) {
+  var toggleCollapse = function(elt, ev) {
 
-    var e = ev.target.closest('[data-flrn-nid]');
+    if (elt.querySelector('.flrn-children').children.length < 1) return;
 
-    if ( ! e) return;
-    if (e.querySelector('.flrn-children').children.length < 1) return;
+    elt.classList.toggle('flrn-collapsed');
+  };
 
-    e.classList.toggle('flrn-collapsed');
+  var nodeClick = function(ev) {
+
+    var clearMarkers = function(elt) {
+      var fle = elt.closest('.fleuron');
+      [ 'cancel-marker', 'delete-marker' ].forEach(function(m) {
+        fle.querySelectorAll('.' + m).forEach(function(e) {
+          e.classList.remove(m); }); }); };
+
+    var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
+
+    if (ev.shiftKey && ev.ctrlKey) {
+      clearMarkers(elt);
+      elt.classList.add('delete-marker');
+    }
+    else if (ev.shiftKey) {
+      clearMarkers(elt);
+      elt.classList.add('cancel-marker');
+    }
+    else {
+      toggleCollapse(elt, ev);
+    }
+
+    if (ev.shiftKey) window.getSelection().removeAllRanges();
+      // prevent click on node selecting text...
+  };
+
+  var nodeEnter = function(ev) {
+
+    var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
+    var fe = elt.closest('.fleuron');
+//clog('nodeEnter()', elt, fe, ev.shiftKey, ev.ctrlKey);
+
+    if (ev.shiftKey && ev.ctrlKey) {
+      fe.classList.add('delete-targetting');
+    }
+    if (ev.shiftKey) {
+      fe.classList.add('cancel-targetting');
+    }
+    //else {
+    //}
+  };
+
+  var nodeLeave = function(ev) {
+
+    var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
+    var fe = elt.closest('.fleuron');
+//clog('nodeLeave()', elt, fe);
+
+    fe.classList.remove('cancel-targetting');
+    fe.classList.remove('delete-targetting');
   };
 
   var doCollapse = function(elt) {
@@ -69,7 +118,9 @@ var Fleuron = (function() {
     //h0e.title = 'nid: ' + tree[4];
     e.setAttribute('data-flrn-nid', tree[4]);
 
-    h0e.addEventListener('click', toggleCollapse);
+    h0e.addEventListener('click', nodeClick);
+    h0e.addEventListener('mouseenter', nodeEnter);
+    h0e.addEventListener('mouseleave', nodeLeave);
 
     return e;
   };

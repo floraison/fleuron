@@ -9,12 +9,17 @@
   /*--flrn-tree0-width-2: calc(5rem * 0.5);*/
   --flrn-border-width: 4px;
   --flrn-border-color: lightgrey;
+
+  --flrn-hover-color: grey;
+  --flrn-hover-cancel-color: black;
+  --flrn-hover-delete-color: red;
 }
 
 .fleuron {
   font-family: monospace;
   padding: 0.3rem 0;
 }
+
 .flrn {
   width: 100%;
   display: flex;
@@ -118,6 +123,9 @@
 .flrn-collapsable {
   cursor: pointer;
 }
+.flrn-collapsable:hover {
+  border-color: var(--flrn-hover-color);
+}
 .flrn-collapsed > .flrn-body > .flrn-children {
   display: none;
 }
@@ -147,5 +155,22 @@
 
 .flrn-error > .flrn-head > .flrn-head0 {
   border-color: #ff0000;
+}
+
+
+/* SHIFT to cancel, SHIFT CTRL to delete */
+
+.fleuron.cancel-targetting .flrn-collapsable:hover {
+  border-color: var(--flrn-hover-cancel-color);
+}
+.fleuron.delete-targetting .flrn-collapsable:hover {
+  border-color: var(--flrn-hover-delete-color);
+}
+
+.flrn.cancel-marker > .flrn-head > .flrn-collapsable {
+  border-color: var(--flrn-hover-cancel-color);
+}
+.flrn.delete-marker > .flrn-head > .flrn-collapsable {
+  border-color: var(--flrn-hover-delete-color);
 }
 
