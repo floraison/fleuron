@@ -21,20 +21,14 @@ var Fleuron = (function() {
 
   var nodeClick = function(ev) {
 
-    var clearMarkers = function(elt) {
-      var fle = elt.closest('.fleuron');
-      [ 'cancel-marker', 'delete-marker' ].forEach(function(m) {
-        fle.querySelectorAll('.' + m).forEach(function(e) {
-          e.classList.remove(m); }); }); };
-
     var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
 
     if (ev.shiftKey && ev.ctrlKey) {
-      clearMarkers(elt);
+      self.clearAllMarkers(elt);
       elt.classList.add('delete-marker');
     }
     else if (ev.shiftKey) {
-      clearMarkers(elt);
+      self.clearAllMarkers(elt);
       elt.classList.add('cancel-marker');
     }
     else {
@@ -405,6 +399,15 @@ var Fleuron = (function() {
     locate(elt).querySelectorAll('.flrn-collapsed').forEach(function(e) {
       e.classList.remove('flrn-collapsed');
     });
+  };
+
+  this.clearAllMarkers = function(elt) {
+
+    var fle = elt.closest('.fleuron');
+
+    [ 'cancel-marker', 'delete-marker' ].forEach(function(m) {
+      fle.querySelectorAll('.' + m).forEach(function(e) {
+        e.classList.remove(m); }); });
   };
 
   //
