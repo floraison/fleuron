@@ -28,6 +28,15 @@ var Demo = (function() {
     //Fleuron.descend(fleuron, '0_1_1_0_2_2_3', '.flrn-visited');
     //Fleuron.trail(fleuron, '0_1_1_0_2_1_0', '.flrn-visited', '.flrn-linked');
     //Fleuron.trail(fleuron, '0_1_1_0_2_2_3', '.flrn-visited', '.flrn-linked');
+
+    Fleuron.highlight(fleuron, '0', '.flrn-visited');
+    Fleuron.highlight(fleuron, '0_0', '.flrn-visited');
+    Fleuron.highlight(fleuron, '0_1', '.flrn-visited');
+    Fleuron.highlight(fleuron, '0_2', '.flrn-visited .flrn-active');
+
+    Fleuron.trail(fleuron, '0_0', '.flrn-linked');
+    Fleuron.trail(fleuron, '0_1', '.flrn-linked');
+    //Fleuron.trail(fleuron, '0_2', '.flrn-linked');
   };
 
   var onFlowLoaded = function(res) {
