@@ -11,7 +11,7 @@
   --flrn-border-color: lightgrey;
 
   --flrn-hover-color: grey;
-  --flrn-hover-marked-color: green;
+  --flrn-marked-color: yellowgreen;
 }
 
 .fleuron {
@@ -159,6 +159,6 @@
 }
 
 .flrn-marked > .flrn-head > .flrn-head0 {
-  border-color: var(--flrn-hover-marked-color);
+  background-color: var(--flrn-marked-color);
 }
 
