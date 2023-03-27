@@ -11,8 +11,7 @@
   --flrn-border-color: lightgrey;
 
   --flrn-hover-color: grey;
-  --flrn-hover-cancel-color: black;
-  --flrn-hover-delete-color: red;
+  --flrn-hover-marked-color: green;
 }
 
 .fleuron {
@@ -45,7 +44,8 @@
 .flrn-head0 {
   width: 1.4rem;
   height: 1.4rem;
-  border: var(--flrn-border-width) solid var(--flrn-border-color);
+  border: var(--flrn-border-width) solid;
+  border-color: var(--flrn-border-color);
   background-color: white;
   border-radius: 1.4rem;
   margin-right: 0.3rem;
@@ -101,12 +101,12 @@
 }
 
 .flrn-visited > .flrn-head > .flrn-head0 {
-  color: #0060a9;
+  /*color: #0060a9;*/
   border-color: #0060a9;
   background: white;
 }
 .flrn-active > .flrn-head > .flrn-head0 { /* active > visited */
-  color: #0060a9;
+  /*color: #0060a9;*/
   border-color: #0060a9;
   background-color: #fd0;
 }
@@ -122,9 +122,6 @@
 
 .flrn-collapsable {
   cursor: pointer;
-}
-.flrn-collapsable:hover {
-  border-color: var(--flrn-hover-color);
 }
 .flrn-collapsed > .flrn-body > .flrn-children {
   display: none;
@@ -152,25 +149,16 @@
   padding-top: 0;
 }
 
-
 .flrn-error > .flrn-head > .flrn-head0 {
   border-color: #ff0000;
 }
 
 
-/* SHIFT to cancel, SHIFT CTRL to delete */
-
-.fleuron.cancel-targetting .flrn-collapsable:hover {
-  border-color: var(--flrn-hover-cancel-color);
-}
-.fleuron.delete-targetting .flrn-collapsable:hover {
-  border-color: var(--flrn-hover-delete-color);
+.flrn > .flrn-head > .flrn-head0:hover {
+  border-color: var(--flrn-hover-color);
 }
 
-.flrn.cancel-marker > .flrn-head > .flrn-collapsable {
-  border-color: var(--flrn-hover-cancel-color);
-}
-.flrn.delete-marker > .flrn-head > .flrn-collapsable {
-  border-color: var(--flrn-hover-delete-color);
+.flrn.marked > .flrn-head > .flrn-head0 {
+  border-color: var(--flrn-hover-marked-color);
 }
 

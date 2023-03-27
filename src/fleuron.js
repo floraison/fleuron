@@ -23,46 +23,30 @@ var Fleuron = (function() {
 
     var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
 
-    if (
-      elt.classList.contains('cancel-marker') ||
-      elt.classList.contains('delete-marker')
-    ) { self.clearAllMarkers(elt); return; }
+    if (elt.classList.contains('marked')) {
+      self.clearAllMarkers(elt);
+      return;
+    }
 
     if (ev.shiftKey) self.clearAllMarkers(elt);
 
-    if (ev.shiftKey && ev.ctrlKey) elt.classList.add('delete-marker');
-    else if (ev.shiftKey) elt.classList.add('cancel-marker');
+    if (ev.shiftKey) elt.classList.add('marked');
     else toggleCollapse(elt, ev);
 
     if (ev.shiftKey) window.getSelection().removeAllRanges();
       // prevent click on node selecting text...
   };
 
-  var nodeEnter = function(ev) {
-
-    var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
-    var fe = elt.closest('.fleuron');
-//clog('nodeEnter()', elt, fe, ev.shiftKey, ev.ctrlKey);
-
-    if (ev.shiftKey && ev.ctrlKey) {
-      fe.classList.add('delete-targetting');
-    }
-    if (ev.shiftKey) {
-      fe.classList.add('cancel-targetting');
-    }
-    //else {
-    //}
-  };
-
-  var nodeLeave = function(ev) {
-
-    var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
-    var fe = elt.closest('.fleuron');
-//clog('nodeLeave()', elt, fe);
-
-    fe.classList.remove('cancel-targetting');
-    fe.classList.remove('delete-targetting');
-  };
+  //var nodeEnter = function(ev) {
+  //  var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
+  //  var fe = elt.closest('.fleuron');
+  //  if (ev.shiftKey) fe.classList.add('marking');
+  //};
+  //var nodeLeave = function(ev) {
+  //  var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
+  //  var fe = elt.closest('.fleuron');
+  //  fe.classList.remove('marking');
+  //};
 
   var doCollapse = function(elt) {
 
@@ -116,8 +100,8 @@ var Fleuron = (function() {
     e.setAttribute('data-flrn-nid', tree[4]);
 
     h0e.addEventListener('click', nodeClick);
-    h0e.addEventListener('mouseenter', nodeEnter);
-    h0e.addEventListener('mouseleave', nodeLeave);
+    //h0e.addEventListener('mouseenter', nodeEnter);
+    //h0e.addEventListener('mouseleave', nodeLeave);
 
     return e;
   };
@@ -406,9 +390,8 @@ var Fleuron = (function() {
 
     var fle = elt.closest('.fleuron');
 
-    [ 'cancel-marker', 'delete-marker' ].forEach(function(m) {
-      fle.querySelectorAll('.' + m).forEach(function(e) {
-        e.classList.remove(m); }); });
+    fle.querySelectorAll('.marked')
+      .forEach(function(e) { e.classList.remove('marked'); });
   };
 
   //
