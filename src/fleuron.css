@@ -154,11 +154,11 @@
 }
 
 
-.flrn > .flrn-head > .flrn-head0:hover {
+.flrn-visited > .flrn-head > .flrn-head0:hover {
   border-color: var(--flrn-hover-color);
 }
 
-.flrn.marked > .flrn-head > .flrn-head0 {
+.flrn-marked > .flrn-head > .flrn-head0 {
   border-color: var(--flrn-hover-marked-color);
 }
 

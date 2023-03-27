@@ -23,15 +23,21 @@ var Fleuron = (function() {
 
     var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
 
-    if (elt.classList.contains('marked')) {
+    if (elt.classList.contains('flrn-marked')) {
       self.clearAllMarkers(elt);
       return;
     }
 
     if (ev.shiftKey) self.clearAllMarkers(elt);
 
-    if (ev.shiftKey) elt.classList.add('marked');
-    else toggleCollapse(elt, ev);
+    if (ev.shiftKey) {
+      if (elt.classList.contains('flrn-visited')) {
+        elt.classList.add('flrn-marked');
+      }
+    }
+    else {
+      toggleCollapse(elt, ev);
+    }
 
     if (ev.shiftKey) window.getSelection().removeAllRanges();
       // prevent click on node selecting text...
@@ -390,8 +396,8 @@ var Fleuron = (function() {
 
     var fle = elt.closest('.fleuron');
 
-    fle.querySelectorAll('.marked')
-      .forEach(function(e) { e.classList.remove('marked'); });
+    fle.querySelectorAll('.flrn-marked')
+      .forEach(function(e) { e.classList.remove('flrn-marked'); });
   };
 
   //
