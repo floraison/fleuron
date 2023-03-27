@@ -60,7 +60,7 @@
   height: 100%;
   background-color: var(--flrn-border-color);
   top: 1rem;
-  left: 0.8rem;
+  left: 0.85rem;
   position: absolute;
   z-index: -1;
 }
@@ -134,10 +134,6 @@
   bottom: 0.16rem;
   right: 0.16rem;
   background-color: var(--flrn-border-color);
-  /*
-  top: 0.6rem;
-  left: -0.9rem;
-  */
   border-radius: 1.4rem;
   z-index: 9;
 }
