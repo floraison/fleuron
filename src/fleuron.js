@@ -108,8 +108,10 @@ var Fleuron = (function() {
     var be = create(e, 'div', { class: 'flrn-body' });
     create(be, 'div', { class: 'flrn-tree0' }, tree[0]);
 
+    var lo = 0; if (self.hasOwnProperty('lineOffset')) lo = self.lineOffset;
+
     //h0e.title = 'nid: ' + tree[4];
-    h0e.title = `line ${tree[2]} / nid ${tree[4]}`;
+    h0e.title = `line ${lo + tree[2]} / nid ${tree[4]}`;
 
     e.setAttribute('data-flrn-nid', tree[4]);
 
