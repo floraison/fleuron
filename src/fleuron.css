@@ -150,7 +150,8 @@
 }
 
 
-.flrn-visited > .flrn-head > .flrn-head0:hover {
+/* .flrn-visited > .flrn-head > .flrn-head0:hover { */
+[data-flrn-nids] > .flrn-head > .flrn-head0:hover {
   border-color: var(--flrn-hover-color);
 }
 

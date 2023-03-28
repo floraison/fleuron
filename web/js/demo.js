@@ -42,6 +42,7 @@ var Demo = (function() {
     Fleuron.flagNid(fleuron, '0_0-123');
     Fleuron.flagNid(fleuron, '0_0-456');
     Fleuron.flagNid(fleuron, '0_1-789');
+    Fleuron.flagNid(fleuron, '0_2-321');
   };
 
   var onFlowLoaded = function(res) {

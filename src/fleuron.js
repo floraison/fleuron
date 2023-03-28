@@ -31,7 +31,8 @@ var Fleuron = (function() {
     if (ev.shiftKey) self.clearAllMarkers(elt);
 
     if (ev.shiftKey) {
-      if (elt.classList.contains('flrn-visited')) {
+      //if (elt.classList.contains('flrn-visited')) {
+      if (elt.getAttribute('data-flrn-nids')) {
         elt.classList.add('flrn-marked');
       }
     }
