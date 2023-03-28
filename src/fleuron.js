@@ -306,18 +306,6 @@ var Fleuron = (function() {
     elt.classList.add(...klas);
   };
 
-  var addNid = function(elt, nid) {
-
-    var k = 'data-flrn-nids';
-
-    var vs = (elt.getAttribute(k) || '')
-      .split(',')
-      .filter(function(e) { return e.length > 0; });
-    vs.push(nid);
-      //
-    elt.setAttribute(k, vs.join(','));
-  };
-
   this.highlight = function(elt, nid, kla, title) {
 
     var e0 = locate(elt);
@@ -326,8 +314,6 @@ var Fleuron = (function() {
 
     var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return null;
-
-    addNid(e, nid);
 
     addClasses(e, ks);
 
@@ -388,6 +374,18 @@ var Fleuron = (function() {
 
       e = e.parentElement.closest('[data-flrn-nid]'); if ( ! e) break;
     }
+  };
+
+  this.flagNid = function(elt, nid) {
+
+    var e0 = locate(elt);
+    var n = nid.split('-')[0];
+
+    var ce = e0.querySelector(`[data-flrn-nid="${n}"]`); if ( ! ce) return;
+clog(nid, n, ce);
+
+    var v = ce.getAttribute('data-flrn-nids'); v = (v ? (v + ',') : '') + nid;
+    ce.setAttribute('data-flrn-nids', v);
   };
 
   this.collapse = function(/*elt, arguments*/) {
