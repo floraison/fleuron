@@ -382,7 +382,6 @@ var Fleuron = (function() {
     var n = nid.split('-')[0];
 
     var ce = e0.querySelector(`[data-flrn-nid="${n}"]`); if ( ! ce) return;
-clog(nid, n, ce);
 
     var v = ce.getAttribute('data-flrn-nids'); v = (v ? (v + ',') : '') + nid;
     ce.setAttribute('data-flrn-nids', v);
