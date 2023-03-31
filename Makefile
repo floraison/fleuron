@@ -1,7 +1,7 @@
 
 N = fleuron
 RUBY = ruby
-VERSION != grep VERSION src/fleuron.js | $(RUBY) -e "puts gets.match(/VERSION = '([\d\.]+)/)[1]"
+VERSION != grep VERSION src/$(N).js | $(RUBY) -e "puts gets.match(/VERSION = '([\d\.]+)/)[1]"
 SHA != git log -1 --format="%h"
 NOW != date
 COPY != grep Copyright LICENSE.txt
@@ -9,7 +9,7 @@ NORM != ls web/css/normalize*
 
 
 version:
-	@echo $(VERSION)
+	@echo $(N) $(VERSION)
 	@echo $(NORM)
 v: version
 
