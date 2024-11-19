@@ -1,9 +1,11 @@
 
 # fleuron.js
 
+## 1.1.1
 
-## 1.1.0 not yet released
+* Let-ification
 
+## 1.1.0
 
 ## 1.0.0
 

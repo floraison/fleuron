@@ -5,23 +5,23 @@ var Fleuron = (function() {
 
   "use strict";
 
-  this.VERSION = '1.1.0';
+  this.VERSION = '1.1.1';
 
-  var self = this;
+  let self = this;
 
   //
   // protected functions
 
-  var toggleCollapse = function(elt, ev) {
+  let toggleCollapse = function(elt, ev) {
 
     if (elt.querySelector('.flrn-children').children.length < 1) return;
 
     elt.classList.toggle('flrn-collapsed');
   };
 
-  var nodeClick = function(ev) {
+  let nodeClick = function(ev) {
 
-    var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
+    let elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
 
     if (elt.classList.contains('flrn-marked')) {
       self.clearAllMarkers(elt);
@@ -44,63 +44,63 @@ var Fleuron = (function() {
       // prevent click on node selecting text...
   };
 
-  //var nodeEnter = function(ev) {
-  //  var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
-  //  var fe = elt.closest('.fleuron');
+  //let nodeEnter = function(ev) {
+  //  let elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
+  //  let fe = elt.closest('.fleuron');
   //  if (ev.shiftKey) fe.classList.add('marking');
   //};
-  //var nodeLeave = function(ev) {
-  //  var elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
-  //  var fe = elt.closest('.fleuron');
+  //let nodeLeave = function(ev) {
+  //  let elt = ev.target.closest('[data-flrn-nid]'); if ( ! elt) return;
+  //  let fe = elt.closest('.fleuron');
   //  fe.classList.remove('marking');
   //};
 
-  var doCollapse = function(elt) {
+  let doCollapse = function(elt) {
 
     if (elt.querySelector('.flrn-children').children.length < 1) return;
 
     elt.classList.add('flrn-collapsed');
   };
 
-  var clean = function(elt) {
+  let clean = function(elt) {
     while (elt.firstChild) elt.removeChild(elt.firstChild);
   };
-  var create = function(parent, tagname, atts, text) {
+  let create = function(parent, tagname, atts, text) {
     atts = atts || {}; text = text || '';
-    var e = document.createElement(tagname);
-    for (var k in atts) e.setAttribute(k, atts[k]);
+    let e = document.createElement(tagname);
+    for (let k in atts) e.setAttribute(k, atts[k]);
     e.textContent = text;
     if (parent) parent.appendChild(e);
     return e;
   };
 
-  var dup = function(o) { return JSON.parse(JSON.stringify(o)); };
+  let dup = function(o) { return JSON.parse(JSON.stringify(o)); };
 
-  var cats = {
+  let cats = {
     sequence: '_seq', loop: '_seq', cursor: '_seq',
     define: '_seq', def: '_seq',
     concurrence: '_con',
     '==': '_cmp', '!=': '_cmp'
       };
 
-  var createFleuronDiv = function(elt, tree, name) {
+  let createFleuronDiv = function(elt, tree, name) {
 
-    var c = [ 'flrn', `flrn-${name}` ];
+    let c = [ 'flrn', `flrn-${name}` ];
     if (name !== tree[0]) c.push(`flrn-${tree[0]}`);
-    var cat = cats[tree[0]]; if (cat) c.push(`flrn-${cat}`);
+    let cat = cats[tree[0]]; if (cat) c.push(`flrn-${cat}`);
 
-    var as = { class: c.join(' '), 'data-flrn-line': tree[2] };
+    let as = { class: c.join(' '), 'data-flrn-line': tree[2] };
     if (tree[3]) as['data-flrn-file'] = tree[3];
 
-    var e = create(elt, 'div', as);
+    let e = create(elt, 'div', as);
 
-    var he = create(e, 'div', { class: 'flrn-head' });
-    var h0e = create(he, 'div', { class: 'flrn-head0' });
-    var be = create(e, 'div', { class: 'flrn-body' });
+    let he = create(e, 'div', { class: 'flrn-head' });
+    let h0e = create(he, 'div', { class: 'flrn-head0' });
+    let be = create(e, 'div', { class: 'flrn-body' });
     create(be, 'div', { class: 'flrn-tree0' }, tree[0]);
 
-    //var lo = 0; if (self.hasOwnProperty('lineOffset')) lo = self.lineOffset;
-    var lo = 0; //if (self.hasOwnProperty('lineOffset')) lo = self.lineOffset;
+    //let lo = 0; if (self.hasOwnProperty('lineOffset')) lo = self.lineOffset;
+    let lo = 0; //if (self.hasOwnProperty('lineOffset')) lo = self.lineOffset;
 
     //h0e.title = 'nid: ' + tree[4];
     h0e.title = `line ${lo + tree[2]} / nid ${tree[4]}`;
@@ -116,23 +116,23 @@ var Fleuron = (function() {
 
   // renderers...
 
-  var rs = {};
+  let rs = {};
 
   rs._children = function(elt, tree) {
 
 //clog('renderChildren()', elt, tree);
     //if ( ! Array.isArray(tree[1])) { render(ce, tree[1]); return elt; }
 
-    var be = elt.querySelector('.flrn-body');
-    var ae = create(be, 'div', { class: 'flrn-atts' });
-    var ce = create(be, 'div', { class: 'flrn-children' });
+    let be = elt.querySelector('.flrn-body');
+    let ae = create(be, 'div', { class: 'flrn-atts' });
+    let ce = create(be, 'div', { class: 'flrn-children' });
 
     tree[1].forEach(function(t) {
       if (t[0] === '_att') {
         render(ae, t);
       }
       else {
-        var e = create(ce, 'div', { class: 'flrn-child' });
+        let e = create(ce, 'div', { class: 'flrn-child' });
         render(e, t);
       }
     });
@@ -144,12 +144,12 @@ var Fleuron = (function() {
   };
 
   rs._default = function(elt, tree) {
-    var e = createFleuronDiv(elt, tree, '_default');
+    let e = createFleuronDiv(elt, tree, '_default');
     return renderChildren(e, tree);
   };
 
   rs._setter = function(elt, tree) {
-    var e = rs._default(elt, tree);
+    let e = rs._default(elt, tree);
     e.classList.add('flrn-_setter');
     e.querySelector('.flrn-atts').innerHTML = tree[1][0][1][0][0];
     return e;
@@ -158,28 +158,28 @@ var Fleuron = (function() {
   rs.define = rs._setter;
 
   rs._ = function(elt, tree) {
-    var t = '_';
+    let t = '_';
     return create(elt, 'div', { class: 'flrn-_' }, t);
   };
   rs._num = function(elt, tree) {
-    var t = '' + tree[1];
+    let t = '' + tree[1];
     return create(elt, 'div', { class: 'flrn-_num' }, t);
   };
   rs._sqs = function(elt, tree) {
-    var t = "'" + tree[1].replaceAll(/'/g, "\'") + "'";
+    let t = "'" + tree[1].replaceAll(/'/g, "\'") + "'";
     return create(elt, 'div', { class: 'flrn-_sqs' }, t);
   };
   rs._ref = function(elt, tree) {
-    var t = tree[1].map(function(t) { return t[1]; }).join('.');
+    let t = tree[1].map(function(t) { return t[1]; }).join('.');
     return create(elt, 'div', { class: 'flrn-_ref' }, t);
   };
 
   rs._key = function(elt, tree) {
-    var t = tree[0];
+    let t = tree[0];
     return create(elt, 'div', { class: 'flrn-_att-key' }, t);
   };
   rs._att = function(elt, tree) {
-    var e = create(elt, 'div', { class: 'flrn-_att' });
+    let e = create(elt, 'div', { class: 'flrn-_att' });
     if (tree[1].length === 1) {
       return render(e, tree[1][0]);
     }
@@ -192,14 +192,14 @@ var Fleuron = (function() {
 
   // rewriters...
 
-  var rws = {};
+  let rws = {};
 
   rws._if = function(tree) {
 
-    var t0 = tree[0] === '_if' ? 'if' : 'unless';
-    var l = tree[2];
-    var t = tree[1][1];
-    var n = tree[4];
+    let t0 = tree[0] === '_if' ? 'if' : 'unless';
+    let l = tree[2];
+    let t = tree[1][1];
+    let n = tree[4];
 
     t[1].push(
       [ '_att', [
@@ -214,35 +214,35 @@ var Fleuron = (function() {
   };
   rws._unless = rws._if;
 
-  var rewrite = function(tree) {
+  let rewrite = function(tree) {
 
-    var rw = rws[tree[0]];
-    var t = rw ? rw(tree) : tree;
+    let rw = rws[tree[0]];
+    let t = rw ? rw(tree) : tree;
 
     return t;
   };
 
   // Looks for _fleuron in all parent elements
   //
-  var findFleurons = function(elt) {
+  let findFleurons = function(elt) {
 
     if (elt._fleurons) return elt._fleurons;
     if (elt.parentElement) return findFleurons(elt.parentElement);
     return {};
   };
 
-  var getRenderer = function(elt, t0) {
+  let getRenderer = function(elt, t0) {
 
-    var fs = findFleurons(elt);
+    let fs = findFleurons(elt);
 
     return fs[t0] || rs[t0] || fs._default || rs._default;
   };
 
-  var renderChildren = function(elt, tree) {
+  let renderChildren = function(elt, tree) {
 
     getRenderer(elt, '_children')(elt, tree);
 
-    var cn = elt.querySelector(':scope > .flrn-body > .flrn-children');
+    let cn = elt.querySelector(':scope > .flrn-body > .flrn-children');
     if (cn && cn.children.length > 0) {
       elt.querySelector('.flrn-head0').classList.add('flrn-collapsable');
     }
@@ -250,14 +250,14 @@ var Fleuron = (function() {
     return elt;
   };
 
-  var render = function(elt, tree) {
+  let render = function(elt, tree) {
 
-    var t = rewrite(tree);
+    let t = rewrite(tree);
 
     return getRenderer(elt, t[0])(elt, t);
   };
 
-  var nidify = function(t, nid) {
+  let nidify = function(t, nid) {
 
     if ( ! Array.isArray(t)) return;
     if (t.length < 4) { t.push(undefined); } t.push(nid);
@@ -269,15 +269,15 @@ var Fleuron = (function() {
     return t;
   };
 
-  var locate = function(elt) {
+  let locate = function(elt) {
 
     if (typeof elt === 'string') return document.querySelector(elt);
     return elt;
   };
 
-  var splitClasses = function(kla) {
+  let splitClasses = function(kla) {
 
-    var ks = null;
+    let ks = null;
 
     if (typeof kla === 'string') ks = kla.split(/(\s*\.|\s+)/);
     else if (Array.isArray(kla)) ks = kla;
@@ -294,14 +294,14 @@ var Fleuron = (function() {
 
   this.render = function(elt, tree) {
 
-    var e = locate(elt);
-    var t = nidify(dup(tree), '0');
+    let e = locate(elt);
+    let t = nidify(dup(tree), '0');
 
     clean(e);
     render(e, t, null);
   };
 
-  var addClasses = function(elt, klas) {
+  let addClasses = function(elt, klas) {
 
     //klas.forEach(function(k) { elt.classList.add(k); });
     elt.classList.add(...klas);
@@ -309,11 +309,11 @@ var Fleuron = (function() {
 
   this.highlight = function(elt, nid, kla, title) {
 
-    var e0 = locate(elt);
-    var n = nid.split('-')[0];
-    var ks = splitClasses(kla);
+    let e0 = locate(elt);
+    let n = nid.split('-')[0];
+    let ks = splitClasses(kla);
 
-    var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
+    let e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return null;
 
     addClasses(e, ks);
@@ -328,11 +328,11 @@ var Fleuron = (function() {
 
   this.descend = function(elt, nid, kla) {
 
-    var e0 = locate(elt);
-    var n = nid.split('-')[0];
-    var ks = splitClasses(kla);
+    let e0 = locate(elt);
+    let n = nid.split('-')[0];
+    let ks = splitClasses(kla);
 
-    var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
+    let e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return null;;
 
     while (true) {
@@ -345,27 +345,27 @@ var Fleuron = (function() {
 
   this.trail = function(elt, nid, kla, prekla) {
 
-    var e0 = locate(elt);
-    var n = nid.split('-')[0];
-    var ks = splitClasses(kla);
-    var pks = splitClasses(prekla);
+    let e0 = locate(elt);
+    let n = nid.split('-')[0];
+    let ks = splitClasses(kla);
+    let pks = splitClasses(prekla);
 
-    var e = e0.querySelector('[data-flrn-nid="' + n + '"]');
+    let e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return;
 
     while (true) {
 
       addClasses(e, ks);
 
-      var pe = e.parentElement.closest('[data-flrn-nid]');
+      let pe = e.parentElement.closest('[data-flrn-nid]');
 
       if ( ! (pe && pe.classList.contains('flrn-_con'))) {
 
-        var seen = false;
+        let seen = false;
 
-        var ce = e.closest('.flrn-child'); while (true) {
+        let ce = e.closest('.flrn-child'); while (true) {
           if ( ! ce) break;
-          var ee = ce.querySelector('[data-flrn-nid]');
+          let ee = ce.querySelector('[data-flrn-nid]');
           addClasses(ee, ks);
           if (seen) addClasses(ee, pks);
           seen = true;
@@ -379,22 +379,22 @@ var Fleuron = (function() {
 
   this.flagNid = function(elt, nid) {
 
-    var e0 = locate(elt);
-    var n = nid.split('-')[0];
+    let e0 = locate(elt);
+    let n = nid.split('-')[0];
 
-    var ce = e0.querySelector(`[data-flrn-nid="${n}"]`); if ( ! ce) return;
+    let ce = e0.querySelector(`[data-flrn-nid="${n}"]`); if ( ! ce) return;
 
-    var v = ce.getAttribute('data-flrn-nids'); v = (v ? (v + ',') : '') + nid;
+    let v = ce.getAttribute('data-flrn-nids'); v = (v ? (v + ',') : '') + nid;
     ce.setAttribute('data-flrn-nids', v);
   };
 
   this.collapse = function(/*elt, arguments*/) {
 
-    var as = Array.from(arguments);
-    var elt = locate(as.shift());
+    let as = Array.from(arguments);
+    let elt = locate(as.shift());
 
     as.forEach(function(a, i) {
-      var es = null;
+      let es = null;
       if (a.match(/^\d/)) {
         es = elt.querySelectorAll('[data-flrn-nid="' + a + '"]');
       }
@@ -414,7 +414,7 @@ var Fleuron = (function() {
 
   this.clearAllMarkers = function(elt) {
 
-    var fle = elt.closest('.fleuron');
+    let fle = elt.closest('.fleuron');
 
     fle.querySelectorAll('.flrn-marked')
       .forEach(function(e) { e.classList.remove('flrn-marked'); });
