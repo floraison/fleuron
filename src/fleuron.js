@@ -335,7 +335,7 @@ var Fleuron = (function() {
     let e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return null;;
 
-    while (true) {
+    for (let i = 0; i < 9999; i++) {
       addClasses(e, ks);
       e = e.parentElement.closest('[data-flrn-nid]'); if ( ! e) break;
     }
@@ -353,7 +353,7 @@ var Fleuron = (function() {
     let e = e0.querySelector('[data-flrn-nid="' + n + '"]');
     if ( ! e) return;
 
-    while (true) {
+    for (let i = 0; i < 9999; i++) {
 
       addClasses(e, ks);
 
@@ -363,7 +363,7 @@ var Fleuron = (function() {
 
         let seen = false;
 
-        let ce = e.closest('.flrn-child'); while (true) {
+        let ce = e.closest('.flrn-child'); for (let i = 0; i < 9999; i++) {
           if ( ! ce) break;
           let ee = ce.querySelector('[data-flrn-nid]');
           addClasses(ee, ks);
