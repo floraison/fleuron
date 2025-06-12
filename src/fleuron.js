@@ -366,6 +366,7 @@ var Fleuron = (function() {
         let ce = e.closest('.flrn-child'); for (let i = 0; i < 9999; i++) {
           if ( ! ce) break;
           let ee = ce.querySelector('[data-flrn-nid]');
+          if ( ! ee) continue;
           addClasses(ee, ks);
           if (seen) addClasses(ee, pks);
           seen = true;

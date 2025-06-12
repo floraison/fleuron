@@ -3,8 +3,9 @@
 
 ## 1.1.1
 
-* Let-ification
+* Prevent error on missing subnode
 * Drop the `while (true) {`
+* Let-ification
 
 ## 1.1.0
 
